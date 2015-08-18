@@ -772,7 +772,7 @@ make_package() {
         if ! [ -d "$LINTCACHE" ]; then
             logmsg "------ Creating lint cache at $LINTCACHE using current publishers"
             pkg image-create "${LINTCACHE}/ref_image"
-            pkg publisher -H | while read publisher type status uri; do
+            pkg publisher -H | while read publisher type status proxied uri; do
                 pkg -R "${LINTCACHE}/ref_image" set-publisher -g "$uri" "$publisher"
             done
         fi
