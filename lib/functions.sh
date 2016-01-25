@@ -1021,6 +1021,21 @@ python_build() {
         logerr "Cannot move from site-packages to vendor-packages"
 }
 
+niksula_python_build() {
+    PYTHON=${PYTHON-${PREFIX}/bin/python3}
+    PYTHON_MAJOR=$($PYTHON -c 'import sys; print("%d.%d" % sys.version_info[0:2])') \
+        || logerr "cannot determine major version of $PYTHON"
+    DEPENDS_IPS="$DEPENDS_IPS =niksula/runtime/python@$PYTHON_MAJOR"
+    pushd $TMPDIR/$BUILDDIR > /dev/null
+    logmsg '--- setup.py build'
+    logcmd $PYTHON setup.py build || logerr '--- build failed'
+    logmsg '--- setup.py install'
+    logcmd $PYTHON setup.py install \
+        --single-version-externally-managed --root=$DESTDIR \
+        || logerr '--- install failed'
+    popd >/dev/null
+}
+
 #############################################################################
 # Build/test function for perl modules
 #############################################################################

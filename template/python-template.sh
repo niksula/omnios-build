@@ -27,21 +27,20 @@
 # Load support functions
 . ../../lib/functions.sh
 
-PROG=myapp      # App name
-VER=1.0         # App version
-VERHUMAN=$VER   # Human readable version
-#PVER=0.1       # Branch (set in config.sh, override here if needed)
-PKG=cat/pkg     # Package name (without prefix)
-SUMMARY=""      # Change this
-DESC=""         # Change this
+PROG=
+VER=
+VERHUMAN=$VER
+PKG=niksula/runtime/python/
+SUMMARY=
+DESC=
 
-BUILD_DEPENDS_IPS=
-RUN_DEPENDS_IPS="runtime/python-26"
+BUILD_DEPENDS_IPS='niksula/runtime/python'
+RUN_DEPENDS_IPS=
 
 init
 download_source $PROG $PROG $VER
 patch_source
 prep_build
-python_build
+niksula_python_build
 make_package
 clean_up
