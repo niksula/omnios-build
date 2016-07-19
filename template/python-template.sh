@@ -36,7 +36,6 @@ DESC=
 
 BUILD_DEPENDS_IPS='niksula/runtime/python'
 RUN_DEPENDS_IPS=
-
 init
 download_source $PROG $PROG $VER
 patch_source
